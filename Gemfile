@@ -3,13 +3,26 @@ source 'https://rubygems.org'
 ruby '2.1.0'
 #ruby-gemset=monrails
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.2'
 
 # DDBB noSQL MongoDB
 gem 'mongoid', github: 'mongoid/mongoid'
 gem 'bson_ext'
+
+group :test do
+	# testing framework for Rails.
+	gem 'rspec-rails'
+	# writes automated tests of website mimicing the behavior of a real user.
+	gem 'selenium-webdriver'
+	# tool to testing. It simulates a user interacting with the website.
+	gem 'capybara'
+end
+
+group :production do	
+	# to compile assets for Heroku
+	gem 'rails_12factor'
+end
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'

@@ -9,4 +9,24 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Monrails::Application.config.secret_key_base = '593ddd09adccdeb39de990c328e50126cc2cd517f5168e2009dd664a57e1fb84cb4a08a32823240fc90f72d15e55df6f432e0a34b89c063790fa21d543f925dc'
+require 'securerandom'
+
+def secure_token
+	
+	token_file = Rails.root.join('.secret')
+
+	if File.exist?(token_file)
+		
+		# Use the existing token.
+		File.read(token_file).chomp
+	else
+		
+		# Generate a new token and store it in token_file
+		token = SecureRandom.hex(64)
+		File.write(token_file, token)
+		token
+	end
+end
+
+
+Monrails::Application.config.secret_key_base = secure_token
