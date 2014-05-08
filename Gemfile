@@ -10,9 +10,18 @@ gem 'rails', '4.0.2'
 gem 'mongoid', github: 'mongoid/mongoid'
 gem 'bson_ext'
 
-group :test do
+group :development, :test do
 	# testing framework for Rails.
 	gem 'rspec-rails'
+	# to automatize test only over the files modified.
+	gem 'guard-rspec'
+	# to loads the environment once, so maintains a pool of processes for running future tests.
+	gem 'spork-rails'
+	gem 'guard-spork'
+	gem 'childprocess'
+end
+
+group :test do
 	# writes automated tests of website mimicing the behavior of a real user.
 	gem 'selenium-webdriver'
 	# tool to testing. It simulates a user interacting with the website.
@@ -24,6 +33,8 @@ group :production do
 	gem 'rails_12factor'
 end
 
+# templating engine for HTML
+gem 'haml'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 # Use Uglifier as compressor for JavaScript assets
