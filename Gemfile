@@ -10,6 +10,12 @@ gem 'rails', '4.0.2'
 gem 'mongoid', github: 'mongoid/mongoid'
 gem 'bson_ext'
 
+group :development do
+	# allows to automatically reload browser when 'view' files are modified.
+	gem 'guard-livereload', require: false	
+	gem 'rack-livereload'
+end
+
 group :development, :test do
 	# testing framework for Rails.
 	gem 'rspec-rails'
@@ -33,6 +39,9 @@ group :production do
 	gem 'rails_12factor'
 end
 
+# Framework to design the front-end
+gem 'foundation-rails'
+
 # templating engine for HTML
 gem 'haml'
 # Use SCSS for stylesheets
@@ -47,6 +56,10 @@ gem 'jquery-rails'
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
+
+# Use to automatically reload browser when 'view' files are modified
+gem 'rack-livereload'
+gem 'guard-livereload', require: false
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

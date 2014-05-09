@@ -19,9 +19,13 @@ Monrails::Application.configure do
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
-
   # Debug mode disables concatenation and preprocessing of assets.
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = true
+
+  # Use to gem 'rack-livereload'
+  config.middleware.use(Rack::LiveReload,
+      :min_delay      => 500,
+      :max_delay      => 10_000)
 end
