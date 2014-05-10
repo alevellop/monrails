@@ -1,5 +1,9 @@
 Monrails::Application.routes.draw do
+  
   root "static_pages#home"
+
+  get "users/new"
+  match '/signup',  to: 'users#new',            via: 'get'
   match '/about',   to: 'static_pages#about',   via: 'get'
   match '/contact', to: 'static_pages#contact', via: 'get'
   # The priority is based upon order of creation: first created -> highest priority.
