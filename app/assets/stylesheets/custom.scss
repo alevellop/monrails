@@ -1,0 +1,17 @@
+@import "foundation_and_overrides";
+/* Add imports of custom sass/scss files here */
+
+footer{
+	position:fixed;
+	background-color: #5da423;
+	bottom: 0;
+	width: 100%;
+	height: 3em;
+
+	p{
+		width: 100%;
+		height: 99%;
+		margin-top: 1%;
+		text-align: center;
+	}
+}

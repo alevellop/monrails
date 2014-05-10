@@ -11,9 +11,10 @@ gem 'mongoid', github: 'mongoid/mongoid'
 gem 'bson_ext'
 
 group :development do
-	# allows to automatically reload browser when 'view' files are modified.
-	gem 'guard-livereload', require: false	
-	gem 'rack-livereload'
+	
+	# replaces the standard Rails error page with a useful error page.
+	gem 'better_errors'
+	gem 'binding_of_caller'
 end
 
 group :development, :test do
@@ -56,10 +57,6 @@ gem 'jquery-rails'
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
-
-# Use to automatically reload browser when 'view' files are modified
-gem 'rack-livereload'
-gem 'guard-livereload', require: false
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

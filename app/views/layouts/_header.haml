@@ -1,0 +1,13 @@
+%nav.top-bar{"data-topbar" => ""}
+  %ul.title-area
+    %li.name
+      %h1= link_to "Monrails", root_path
+    / Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone
+    %li.toggle-topbar.menu-icon
+      %a{href: "#"}
+        %span Menu
+  %section.top-bar-section
+    %ul.right
+      %li= link_to "About Us", about_path
+      %li= link_to "Contact", contact_path
+      %li= link_to "Sign in", "#"

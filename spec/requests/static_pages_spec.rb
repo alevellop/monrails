@@ -1,59 +1,39 @@
 require 'spec_helper'
 
-describe "StaticPages" do
+describe "Static pages" do
   
-	#variables
-	let(:base_title){ "Learning in Streaming" }
+  subject { page }
+
+  shared_examples_for "all static pages" do
+
+    it { should have_selector('h1', text: heading) }
+    it { should have_title(full_title(page_title)) }
+  end
 
   describe "Home page" do
-    it "should have the content 'Monrails'" do
-      visit '/static_pages/home'
-      expect(page).to have_content('Monrails')
-    end
+    before { visit root_path }
 
-    it "should have the base title" do
-      visit '/static_pages/home'
-      expect(page).to have_title(base_title)
-    end
+    let(:heading) { 'Monrails' } 
+    let(:page_title) { '' }
 
-    it "should not have a custom page title" do
-    	visit '/static_pages/home'
-    	expect(page).not_to have_title("| Home")
-    end
+    it_should_behave_like "all static pages"
+    it{ should_not have_title('| Home') } 
   end
 
   describe "About page" do
-  	
-  	it "should have the content 'About us'" do
-  		visit '/static_pages/about'
-  		expect(page).to have_content('About Us')
-  	end
+  	before { visit about_path }
 
-  	it "should have the base title" do
-  		visit '/static_pages/about'
-  		expect(page).to have_title(base_title)
-  	end
+    let(:heading)    { 'About Us' }
+    let(:page_title) { 'About Us' }
 
-    it "should not have a custom page title" do
-      visit '/static_pages/about'
-      expect(page).not_to have_title("| About Us")
-    end
+    it_should_behave_like "all static pages"
   end
 
   describe "Contact page" do
-  	it "should have the content 'Contact'" do
-  		visit '/static_pages/contact'
-  		expect(page).to have_content('Contact')		
-  	end
+    before { visit contact_path }
+    let(:heading)     { 'Contact' } 
+    let(:page_title)  { 'Contact' }
 
-  	it "should have the base title" do
-			visit '/static_pages/contact'
-			expect(page).to have_title(base_title)		
-  	end
-
-    it "should not have a custom page title" do
-        visit '/static_pages/contact'
-        expect(page).not_to have_title("| Contact")
-      end	
+    it_should_behave_like "all static pages"
   end
 end
