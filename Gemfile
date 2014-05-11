@@ -7,7 +7,7 @@ ruby '2.1.0'
 gem 'rails', '4.0.2'
 
 # DDBB noSQL MongoDB
-gem 'mongoid', github: 'mongoid/mongoid'
+gem 'mongoid', git: 'https://github.com/mongoid/mongoid.git'
 gem 'bson_ext'
 
 group :development do
@@ -33,6 +33,11 @@ group :test do
 	gem 'selenium-webdriver'
 	# tool to testing. It simulates a user interacting with the website.
 	gem 'capybara'
+
+	# Clean database before tests
+	gem 'database_cleaner', :github => 'bmabey/database_cleaner'
+
+	gem 'mongoid-rspec'
 end
 
 group :production do	
@@ -40,9 +45,10 @@ group :production do
 	gem 'rails_12factor'
 end
 
+# To irreversibly transform password to make the password hash
+gem 'bcrypt-ruby'
 # Framework to design the front-end
 gem 'foundation-rails'
-
 # templating engine for HTML
 gem 'haml'
 # Use SCSS for stylesheets

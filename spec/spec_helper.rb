@@ -52,6 +52,17 @@ Spork.prefork do
   # ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
   RSpec.configure do |config|
+
+    # Clean DB before tests
+    config.before(:suite) do
+      DatabaseCleaner[:mongoid].strategy = :truncation
+    end
+    config.before(:each) do
+      DatabaseCleaner[:mongoid].start
+    end
+    config.after(:each) do
+      DatabaseCleaner[:mongoid].clean
+    end
     # ## Mock Framework
     #
     # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
