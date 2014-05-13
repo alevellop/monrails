@@ -11,6 +11,12 @@
     
     = render 'layouts/header'
 
+    .container
+      - flash.each do |key, value|
+        %div{class: "small-12 large-12 alert-box #{key}", "data-alert" => ""}
+          = value
+          = link_to "x", "#", class: "close"
+
     = yield
 
     = javascript_include_tag "application"

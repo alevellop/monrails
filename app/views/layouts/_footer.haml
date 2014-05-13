@@ -4,3 +4,8 @@
 		= link_to "Monrails", "https://github.com/alevellop/monrails" 
 		by
 		= link_to "alevellop", " http://es.linkedin.com/in/alejandrovelazquezlopez/es"
+	
+	/ Show code in development
+	.row
+		%p#debug.small-12.large-7.large-offset-2
+			= debug(params) if Rails.env.development?

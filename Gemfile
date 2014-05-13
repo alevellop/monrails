@@ -38,6 +38,9 @@ group :test do
 	gem 'database_cleaner', :github => 'bmabey/database_cleaner'
 
 	gem 'mongoid-rspec'
+
+	# Generate factories to define objects and insert them in th DB.
+	gem 'factory_girl_rails'
 end
 
 group :production do	
