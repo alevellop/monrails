@@ -24,6 +24,6 @@ production:
     default:
       uri: <%= ENV['MONGOHQ_URL'] %>
       options:
-        max_retrie: 30
+        max_retries: 30
         retry_interval: 1
-        time_out: 15
+        timeout: 15
