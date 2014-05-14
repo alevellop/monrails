@@ -35,7 +35,7 @@ group :test do
 	gem 'capybara'
 
 	# Clean database before tests
-	gem 'database_cleaner', :github => 'bmabey/database_cleaner'
+	gem 'database_cleaner', github: 'bmabey/database_cleaner'
 
 	gem 'mongoid-rspec'
 
