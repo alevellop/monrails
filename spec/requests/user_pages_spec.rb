@@ -53,7 +53,7 @@ describe "UserPages" do
   			let(:user) { User.find_by(email: 'user@example.com') }
 
   			it { should have_title(user.name) }
-  			it { should have_selector('div.small-12.large-6.large-offset-3.alert-box.success', text: 'Welcome') } 
+  			it { should have_selector('div.small-12.large-12.alert-box.success', text: 'Welcome') } 
   		end
   	end
   end
