@@ -8,6 +8,10 @@
         %span Menu
   %section.top-bar-section
     %ul.right
+<<<<<<< HEAD
+      %li.active= link_to "Sign in", "#"
+      %li= link_to "Sign up", signup_path
+=======
       %li= link_to "Home", root_path
       
       - if signed_in?
@@ -20,3 +24,4 @@
       - else
         %li.active= link_to "Sign in", signin_path
         %li= link_to "Sign up", signup_path
+>>>>>>> sign-in-out
