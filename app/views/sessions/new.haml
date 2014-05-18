@@ -1,0 +1,14 @@
+- provide(:title, 'Sign in')
+.row
+	%h1.small-12.large-6.large-offset-3 Sign up
+
+.row
+	.small-12.large-6.large-offset-3
+		= form_for(:session, url: sessions_path) do |f|
+			= f.label :email
+			= f.text_field :email
+			= f.label :password
+			= f.text_field :password
+			= f.submit "Sign in", class: "button small"
+
+	%p.small-12.large-12.large-offset-3 New user? #{link_to("Sign up now!", signup_path)}

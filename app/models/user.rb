@@ -5,11 +5,13 @@ class User
 
   field :name,            type: String
   field :email,           type: String
+  field :remember_token,  type: String
   field :password_digest, type: String
 
   has_secure_password
 
   before_save { email.downcase! }
+  before_create :create_remember_token
 
   validates :name,  presence: true, length: { maximum: 50 }
   validates :password , length: { minimum: 6 }
@@ -17,4 +19,18 @@ class User
   validates :email, presence: true, 
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
+
+  def User.new_remember_token
+    SecureRandom.urlsafe_base64
+  end
+
+  def User.digest(token)
+    Digest::SHA1.hexdigest(token.to_s)
+  end
+
+  private
+
+    def create_remember_token
+      self.remember_token = User.digest(User.new_remember_token)
+    end
 end
