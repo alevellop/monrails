@@ -30,3 +30,5 @@ production:
         max_retries: 30
         retry_interval: 1
         timeout: 15
+  options:
+    raise_not_found_error: false
