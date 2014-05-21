@@ -11,7 +11,6 @@ gem 'mongoid', git: 'https://github.com/mongoid/mongoid.git'
 gem 'bson_ext'
 
 group :development do
-	
 	# replaces the standard Rails error page with a useful error page.
 	gem 'better_errors'
 	gem 'binding_of_caller'
@@ -33,12 +32,10 @@ group :test do
 	gem 'selenium-webdriver'
 	# tool to testing. It simulates a user interacting with the website.
 	gem 'capybara'
-
 	# Clean database before tests
 	gem 'database_cleaner', github: 'bmabey/database_cleaner'
 
 	gem 'mongoid-rspec'
-
 	# Generate factories to define objects and insert them in th DB.
 	gem 'factory_girl_rails'
 end
@@ -48,6 +45,11 @@ group :production do
 	gem 'rails_12factor'
 end
 
+# To pagination objects with Zurb Foundation
+gem 'will_paginate'
+gem 'foundation-will_paginate'
+# To make sample users with semi-realistic names and emails addresses
+gem 'faker'
 # To irreversibly transform password to make the password hash
 gem 'bcrypt-ruby'
 # Framework to design the front-end

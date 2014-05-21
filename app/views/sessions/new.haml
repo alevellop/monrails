@@ -3,7 +3,7 @@
 	%h1.small-12.large-6.large-offset-3 Sign in
 
 .row
-	.small-12.large-6.large-offset-3
+	.small-12.large-7.large-offset-2
 		= form_tag sessions_path do
 			= label_tag :email
 			= text_field_tag 'email', params[:email]
@@ -11,4 +11,4 @@
 			= password_field_tag 'password'
 			= submit_tag 'Sign in', class: "button small"
 
-	%p.small-12.large-12.large-offset-3 New user? #{link_to("Sign up now!", signup_path)}
+	%p.small-12.large-7.large-offset-2 New user? #{link_to("Sign up now!", signup_path)}

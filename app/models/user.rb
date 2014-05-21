@@ -6,6 +6,7 @@ class User
   field :name,            type: String
   field :email,           type: String
   field :remember_token,  type: String
+  field :admin,           type: Boolean, default: false
   field :password_digest, type: String
 
   has_secure_password
@@ -26,6 +27,11 @@ class User
 
   def User.digest(token)
     Digest::SHA1.hexdigest(token.to_s)
+  end
+
+  def toggle!(field)
+    send "#{field}=", !self.send("#{field}?")
+    save validation: false
   end
 
   private

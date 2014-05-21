@@ -18,6 +18,7 @@
           = value
           = link_to "x", "#", class: "close"
 
-    = yield
+    .row
+      .small-10.small-offset-1= yield
 
     = render 'layouts/footer'

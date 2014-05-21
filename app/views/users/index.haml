@@ -1,0 +1,13 @@
+- provide(:title, 'All users')
+.row
+	%h1.small-12.large-6.large-offset-3 All users
+
+.row
+	%ul.users.no-bullet.small-12.large-7.large-offset-2
+		.row
+			.small-12.large-12.columns= foundation_paginate @users
+			
+			= render @users
+
+			%p.small-12.large-12.columns
+			.small-12.large-12.columns= foundation_paginate @users
