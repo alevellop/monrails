@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   before_action :signed_in_user_filter, only: [:new, :create]
 
   def index
-    @users = User.all.paginate(page: params[:page])
+    @users = User.all.paginate(page: params[:page], per_page: 20)
   end
 
 	def show
