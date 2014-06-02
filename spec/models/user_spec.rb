@@ -16,6 +16,7 @@ describe User do
   it { should respond_to(:remember_token) }
   it { should respond_to(:authenticate) }
   it { should respond_to(:admin) }
+  it { should respond_to(:author_of) }
 
   it { should be_valid }
   it { should_not be_admin }
@@ -137,5 +138,33 @@ describe User do
   describe "remember token" do
     before { @user.save }
     its(:remember_token) { should_not be_blank }
+  end
+
+  describe "course associations" do
+    before { @user.save }
+    let!(:older_course) do
+      @user.author_of.create(title: "Example Older Course")
+    end
+    let!(:newer_course) do
+      @user.author_of.create(title: "Example Newer Course")
+    end
+
+    it "should destroy associated courses" do
+      courses = @user.author_of.to_a
+      @user.destroy
+      expect(courses).not_to be_empty
+      courses.each do |course|
+        expect(Course.where(id: course.id)).to be_empty
+      end
+    end
+
+    describe "status" do
+      let(:another_user)   { FactoryGirl.create(:user) }
+      let(:another_course) { another_user.author_of.create(title: "This is another Course") }
+
+      its(:author_of) { should     include(newer_course) }
+      its(:author_of) { should     include(older_course) }
+      its(:author_of) { should_not include(another_course) }
+    end
   end
 end

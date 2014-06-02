@@ -6,7 +6,7 @@ namespace :db do
 													password: "foobar",
 													password_confirmation: "foobar",
 													admin: true)
-		99.times do |n|
+		33.times do |n|
 			name = Faker::Name.name
 			email = "example-#{n+1}@example.com"
 			password = "password"
@@ -14,6 +14,13 @@ namespace :db do
 										email: email,
 										password: password,
 										password_confirmation: password)
+		end
+
+		users = User.all
+		12.times do |m|
+			title = "Example Course Number - #{m}"
+			description = Faker::Lorem.paragraph(2)
+			users.each { |user| user.author_of.create!(title: title, description: description) }
 		end
 	end
 end

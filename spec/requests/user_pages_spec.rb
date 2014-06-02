@@ -67,10 +67,24 @@ describe "UserPages" do
 
 	describe "profile page" do
 		let(:user) { FactoryGirl.create(:user) }
-		before { visit user_path(user) }
 
-		it { should have_content(user.name) }
-		it { should have_title(user.name) } 
+    describe "should render the user's created courses" do
+      before do
+        2.times do |m|
+          user.author_of.create(title: "Example Course #{m}")
+        end
+        sign_in user
+        visit user_path (user)
+      end
+
+      it "should have each course exactly" do
+        user.author_of.each do |created_course|
+          expect(page).to have_selector('li', text: created_course.title)
+        end
+      end
+    end
+
+    
 	end
 
   describe "signup page" do
@@ -156,6 +170,21 @@ describe "UserPages" do
         patch user_path(user), params
       end
       specify { expect(user.reload).not_to be_admin }
+    end
+  end
+
+  describe "courses created by an user" do
+    let(:user) { FactoryGirl.create(:user) }
+    let(:another_user) { FactoryGirl.create(:user) } 
+    let!(:course_one) { another_user.author_of.create(title: "another new course") }
+
+    before do
+      sign_in user
+      visit user_path(another_user)
+    end
+
+    describe "should not be deleted by another user" do
+      it { should_not have_link('delete') }
     end
   end
 end

@@ -126,6 +126,19 @@ describe "Authentication" do
 					specify { expect(response).to redirect_to(signin_path) }
 				end
 			end
+
+			describe "in the Courses controller" do
+				
+				describe "submitting to the create action" do
+					before { post courses_path }
+					specify { expect(response).to redirect_to(signin_path) }
+				end
+
+				describe "submitting to the destroy action" do
+					before { delete course_path(user.author_of.create(title: "Example Course", description: "Lorem Ipsum")) }
+					specify { expect(response).to redirect_to(signin_path) }
+				end
+			end
 		end
 
 		describe "as wrong user" do

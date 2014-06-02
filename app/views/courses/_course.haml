@@ -1,0 +1,8 @@
+- if current_user?(course.author)
+	%li.small-12.large-12
+		= course. title
+		#{link_to "delete", course, method: "delete", data: { confirm: "Are you sure?"}}
+
+- else
+
+	%li= course.title

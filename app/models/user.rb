@@ -3,6 +3,10 @@ class User
   include Mongoid::Timestamps
   include ActiveModel::SecurePassword
 
+  # TODO: check errors in user_pages_spec.rb (lines: 79 - 81).
+  # TODO: refactor created_courses in 'view/users/show' following Chapter 10.3.3.
+  # TODO: Chapter 10, exercises 1, 2, 3 (user_path version), 5, and 7.
+
   field :name,            type: String
   field :email,           type: String
   field :remember_token,  type: String
@@ -10,6 +14,8 @@ class User
   field :password_digest, type: String
 
   has_secure_password
+
+  has_many :author_of, inverse_of: :author, class_name: "Course", dependent: :destroy
 
   before_save { email.downcase! }
   before_create :create_remember_token

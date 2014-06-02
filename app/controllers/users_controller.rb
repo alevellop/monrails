@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  require 'will_paginate/array'
 
   before_action :signed_in_user,        only: [:edit, :update, :destroy]
   before_action :correct_user,          only: [:edit, :update]
@@ -11,7 +10,12 @@ class UsersController < ApplicationController
   end
 
 	def show
-		@user = User.find(params[:id])	
+    if signed_in?
+      @user = admin_user? ? User.find(params[:id]) : current_user
+      @courses = @user.author_of.all.paginate(page: params[:page], per_page: 5)
+    else
+      redirect_to signin_path, notice: "Please sign in."
+    end
 	end
 
   def new
@@ -71,13 +75,6 @@ class UsersController < ApplicationController
   	end
 
     # Before filters
-
-    def signed_in_user
-      unless signed_in?
-        store_location
-        redirect_to signin_url, notice: "Please sign in."
-      end
-    end
 
     def correct_user
       @user = User.find(params[:id])
