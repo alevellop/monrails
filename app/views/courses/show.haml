@@ -1,0 +1,21 @@
+= provide(:title, @course.title)
+
+%h2.small-12.large-8.large-offset-2.text-center= @course.title
+
+/--------------------------------Course info.
+.small-12.large-12
+	.line-bottom.row.small-12.large-12
+		%h3.small-12.large-10.column
+			.small-4.large-2.column Author
+			%strong.small-8.large-10.column= @course.author.name	
+			
+
+	.line-bottom.row.small-12.large-12
+		%h4.small-12.large-12.column Description
+		%p.small-12.large-12.column= @course.description
+
+	.row.small-12.large-12
+		%p.small-12.large-12
+		%h4.small-7.large-5.column User's Comments
+		.small-12.large-2.column
+			%a.button Comment
