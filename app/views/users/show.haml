@@ -3,14 +3,21 @@
 
 / block for user's attributes-----------------------------
 
-%h2.small-11.large-5.large-offset-1.column #{@user.name}
+%h2.small-11.large-5.large-offset-1.column= @user.name
+
 
 / block for courses---------------------------------------
--if @user.author_of.any?
+.line-bottom.small-12.large-6.column
+	%h2.small-12 Courses Created(#{@user.author_of.count})
+	.small-12.large-12 Do you want to create a Course? #{link_to "Create Course", new_course_path, class: "button tiny"}
+	
+	%ul.created_courses.no-bullet.small-12
+		.small-12= will_paginate @courses, param_name: "created_page", renderer: FoundationPagination::Rails
+		= render @courses
 
-	.small-12.large-6.column
-		%h2.small-12 Courses Created(#{@user.author_of.count})
-		.small-12= foundation_paginate @courses
-		%ul.no-bullet.small-12
-			= render @courses
-		.small-12.large-12 Do you want to create a Course? #{link_to "Create Course", new_course_path, class: "button tiny"}
+.small-12.large-6.column
+	%h2.small-12 Courses Registered(#{@user.profile_user.count})
+	
+	%ul.registered_courses.no-bullet.small-12
+		.small-12= will_paginate @courses_registered, param_name: "registered_page", renderer: FoundationPagination::Rails
+		= render @courses_registered

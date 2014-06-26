@@ -15,7 +15,8 @@ class User
 
   has_secure_password
 
-  has_many :author_of, inverse_of: :author, class_name: "Course", dependent: :destroy
+  has_many  :author_of,    inverse_of: :author, class_name: "Course",  dependent: :destroy
+  has_many  :profile_user, inverse_of: :user,   class_name: "Profile", dependent: :destroy
 
   before_save { email.downcase! }
   before_create :create_remember_token

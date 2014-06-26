@@ -10,12 +10,4 @@ FactoryGirl.define do
 		end
 	end
 
-	factory :course, class: Course do
-		title "Example Course"
-		description "Lorem Ipsum"
-
-		transient do
-			author_id 001
-		end
-	end
 end

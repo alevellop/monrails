@@ -1,9 +1,9 @@
 - provide(:title, 'All users')
 
-%h2.small-11.large-6.large-offset-5 All users
+%h2.small-12.large-12.text-center All users
 
 
 %ul.users.no-bullet.small-12.large-7.large-offset-5
 
-		.small-12.large-12.columns= foundation_paginate @users			
+		.small-11.large-12.columns= will_paginate @users, renderer: FoundationPagination::Rails			
 		= render @users

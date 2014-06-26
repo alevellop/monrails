@@ -1,13 +1,13 @@
 - provide(:title, 'Sign in')
 
-%h2.small-11.large-6.large-offset-5 Sign in
+%h2.small-12.large-12.text-center Sign in
 
-.small-11.large-4.large-offset-4
+.small-10.small-offset-1.large-4.large-offset-4
 	= form_tag sessions_path do
 		= label_tag :email
 		= text_field_tag 'email', params[:email]
 		= label_tag :password
 		= password_field_tag 'password'
 		= submit_tag 'Sign in', class: "button small"
-
-%p.small-11.large-4.large-offset-4 New user? #{link_to("Sign up now!", signup_path)}
+	
+	%p New user? #{link_to("Sign up now!", signup_path)}

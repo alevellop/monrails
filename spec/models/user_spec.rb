@@ -17,6 +17,7 @@ describe User do
   it { should respond_to(:authenticate) }
   it { should respond_to(:admin) }
   it { should respond_to(:author_of) }
+  it { should respond_to(:profile_user) }
 
   it { should be_valid }
   it { should_not be_admin }
@@ -165,6 +166,26 @@ describe User do
       its(:author_of) { should     include(newer_course) }
       its(:author_of) { should     include(older_course) }
       its(:author_of) { should_not include(another_course) }
+    end
+  end
+
+  describe "profile association" do
+    before { @user.save }
+    let!(:author) { FactoryGirl.create(:user) }
+    let!(:older_course) { author.author_of.create(title: "Example Older Course", description: "Lorem Ipsum") }
+    let!(:newer_course) { author.author_of.create(title: "Example Newer Course", description: "Lorem Ipsum") }
+    let!(:older_profile) { @user.profile_user.build(course_id: older_course.id) }
+    let!(:newer_profile) { @user.profile_user.build(course_id: newer_course.id) }
+
+    it "should destroy associated profiles" do
+      profiles = @user.profile_user.to_a
+      @user.destroy
+      expect(profiles).not_to be_empty
+      profiles.each do |profile|
+        expect(Profile.where(id: profile.id)).to be_empty
+        expect(older_course.profile_course.find_by(id: profile.id)).to be_nil
+        expect(newer_course.profile_course.find_by(id: profile.id)).to be_nil
+      end
     end
   end
 end

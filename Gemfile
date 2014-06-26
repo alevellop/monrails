@@ -47,7 +47,7 @@ end
 
 # To pagination objects with Zurb Foundation
 gem 'will_paginate'
-gem 'foundation-will_paginate'
+gem 'will_paginate-foundation'
 # To make sample users with semi-realistic names and emails addresses
 gem 'faker'
 # To irreversibly transform password to make the password hash

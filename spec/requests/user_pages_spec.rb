@@ -31,11 +31,11 @@ describe "UserPages" do
           before(:all) { 30.times { FactoryGirl.create(:user) } }
           after(:all) { User.delete_all }
 
-          it { should have_selector('ul.pagination') }
+          it { should have_selector('ul.users') }
 
           it "should list each user" do
             User.all.paginate(page: 1).each do |user|
-              expect(page).to have_selector('li', text: user.name)
+              expect(page).to have_link(user.name, user_path(user))
             end
           end
         end
@@ -67,24 +67,42 @@ describe "UserPages" do
 
 	describe "profile page" do
 		let(:user) { FactoryGirl.create(:user) }
+    let!(:course_one) { user.author_of.create(title: "example", description: "lorem") } 
+    let!(:course_two) { user.author_of.create(title: "example", description: "lorem") } 
 
-    describe "should render the user's created courses" do
-      before do
-        2.times do |m|
-          user.author_of.create(title: "Example Course #{m}")
-        end
-        sign_in user
-        visit user_path (user)
-      end
+    let!(:author) { FactoryGirl.create(:user) } 
+    let!(:older_course) { author.author_of.create(title: "example", description: "lorem") } 
+    let!(:newer_course) { author.author_of.create(title: "example", description: "lorem ipsum") }
 
-      it "should have each course exactly" do
-        user.author_of.each do |created_course|
-          expect(page).to have_selector('li', text: created_course.title)
+    before do
+      user.profile_user.create(course_id: older_course.id)
+      user.profile_user.create(course_id: newer_course.id)
+      visit user_path(user)
+    end
+
+    it { should have_content(user.name) }
+    it { should have_title(user.name) }
+
+    describe "pagination created courses" do
+      it { should have_selector('ul.created_courses') }
+
+      it "should list each created course" do
+        User.author_of.all.paginate(page: 1).each do |course|
+          expect(page).to have_link(course.title, course_path(course))
+          expect(page).to have_link("delete", course_path(course))
         end
       end
     end
 
-    
+    describe "pagiantion registered courses" do
+      it { should have_selector('ul.registered_courses') }
+
+      it "should list each registered course" do
+        User.profile_user.all.paginate(page: 1).each do |course|
+          expect(page).to have_link(course.title, href: course_path(course))
+        end
+      end
+    end
 	end
 
   describe "signup page" do

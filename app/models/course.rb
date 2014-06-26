@@ -8,7 +8,8 @@ class Course
   field :title, 			type: String
   field :description, type: String
 
-  belongs_to :author, inverse_of: :author_of, class_name: "User"
+  belongs_to :author,       inverse_of: :author_of, class_name: "User"
+  has_many :profile_course, inverse_of: :course,    class_name: "Profile", dependent: :destroy
 
   validates :author_id, 	presence: true
   validates	:title, 			presence: true, length: { maximum: 100 }

@@ -18,9 +18,12 @@ namespace :db do
 
 		users = User.all
 		12.times do |m|
-			title = "Example Course Number - #{m}"
+			part_of_title = "Example Course Number - #{m}"
 			description = Faker::Lorem.paragraph(2)
-			users.each { |user| user.author_of.create!(title: title, description: description) }
+			users.each do |user| 
+				title = user.name << "'s " << part_of_title
+				user.author_of.create!(title: title, description: description) 
+			end
 		end
 	end
 end

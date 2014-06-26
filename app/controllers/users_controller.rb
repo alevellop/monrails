@@ -12,7 +12,8 @@ class UsersController < ApplicationController
 	def show
     if signed_in?
       @user = admin_user? ? User.find(params[:id]) : current_user
-      @courses = @user.author_of.all.paginate(page: params[:page], per_page: 5)
+      @courses  = @user.author_of.paginate(page: params[:created_page], per_page: 5)
+      @courses_registered = all_profiles.paginate(page: params[:registered_page], per_page: 5)
     else
       redirect_to signin_path, notice: "Please sign in."
     end
@@ -73,6 +74,17 @@ class UsersController < ApplicationController
   		params.require(:user).permit(:name, :email, :password,
   																	:password_confirmation)
   	end
+
+    def all_profiles
+      @all_courses = []
+
+      @profiles = current_user.profile_user.all.to_a
+
+      @profiles.each do |profile|
+        @all_courses << Course.find_by(_id: profile.course_id)
+      end
+      @all_courses
+    end
 
     # Before filters
 

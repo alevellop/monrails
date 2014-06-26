@@ -1,8 +1,8 @@
 - provide(:title, 'Sign up')
 
-%h2.small-11.large-6.large-offset-5 Sign up
+%h2.small-12.large-12.text-center Sign up
 
-.small-11.large-4.large-offset-4
+.small-10.small-offset-1.large-4.large-offset-4
 	= form_for(@user) do |f|
 		= render 'fields', f:f
 		= f.submit "Create my account", class: "button small"

@@ -1,8 +1,8 @@
 - provide(:title, "Edit user")
 
-%h2.small-11.large-6.large-offset-4 Update your profile
+%h2.small-12.large-12.text-center Update your profile
 
-.small-11.large-7.large-offset-2
+.small-10.small-offset-1.large-7.large-offset-2
 	= form_for(@user) do |f|
 		= render 'shared/error_messages', object: f.object
 		= f.label :name

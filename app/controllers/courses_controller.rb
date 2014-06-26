@@ -33,6 +33,7 @@ class CoursesController < ApplicationController
 
 	def show
 		@course = Course.find(params[:id])
+		@profile = current_user.profile_user.find_by(course_id: @course.id) if signed_in?
 	end
 
 	

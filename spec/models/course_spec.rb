@@ -11,6 +11,7 @@ describe Course do
   it { should respond_to(:title) }
   it { should respond_to(:description) }
   it { should respond_to(:author) }
+  it { should respond_to(:profile_course) }
   it { should respond_to(:author_id) }
   its(:author) { should eq user }
 
@@ -35,5 +36,24 @@ describe Course do
 
   	before { @course.description= "a"*301 }
   	it { should_not be_valid }
+  end
+
+  describe "profile associations" do
+    before { @course.save }
+    let!(:older_user) { FactoryGirl.create(:user) }
+    let!(:newer_user) { FactoryGirl.create(:user) }
+    let!(:older_profile) { @course.profile_course.build(user_id: older_user.id) } 
+    let!(:newer_profile) { @course.profile_course.build(user_id: newer_user.id) } 
+    
+    it "should destroy associated profile" do
+      profiles = @course.profile_course.to_a
+      @course.destroy
+      expect(profiles).not_to be_empty
+      profiles.each do |profile|
+        expect(Profile.where(id: profile.id)).to be_empty
+        expect(older_user.profile_user.find_by(id: profile.id)).to be_nil
+        expect(newer_user.profile_user.find_by(id: profile.id)).to be_nil
+      end
+    end
   end
 end

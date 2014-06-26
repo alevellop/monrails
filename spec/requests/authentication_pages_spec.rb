@@ -139,6 +139,21 @@ describe "Authentication" do
 					specify { expect(response).to redirect_to(signin_path) }
 				end
 			end
+
+			describe "in the Profiles controller" do
+				describe "submitting to the create action (register action)" do
+					before { post profiles_path }
+					specify { expect(response).to redirect_to(signin_path) }
+				end
+
+				describe "submitting to the destroy action (unregister action)" do
+					let!(:author) { FactoryGirl.create(:user) }
+					let!(:course) { author.author_of.create(title: "example", description: "lorem ipsum") }
+					
+					before { delete profile_path(user.profile_user.create(course_id: course.id)) }
+					specify { expect(response).to redirect_to(signin_path) }
+				end
+			end
 		end
 
 		describe "as wrong user" do
