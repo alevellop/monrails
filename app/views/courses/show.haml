@@ -13,18 +13,11 @@
 		- else
 			- if !author?(@course)
 				-if @profile
-					= render 'shared/unregister'
+					= render 'profiles/unregister'
 				-else
-					= render 'shared/register'
+					= render 'profiles/register'
 			
 
 	.line-bottom.row.small-11.large-12
 		%h4.small-12.large-12.column Description
 		%p.small-12.large-12.column= @course.description
-
-	.row.small-12.large-12
-		%p.small-12.large-12
-		%h4.small-7.large-5.column User's Comments
-		.small-12.large-2.column
-			- if signed_in? && !author?(@course)
-				%a.button Comment

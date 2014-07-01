@@ -11,7 +11,6 @@ describe Profile do
 
   subject { @profile }
 
-  it { should respond_to(:comment) }
   it { should respond_to(:user_id) }
   it { should respond_to(:course_id) }
   it { should respond_to(:user) }
@@ -28,11 +27,6 @@ describe Profile do
 
   describe "when course_id is not present" do
   	before { @profile.course_id = nil }
-  	it { should_not be_valid }
-  end
-
-  describe "when comment is too longer" do
-  	before { @profile.comment = "a"*141 }
   	it { should_not be_valid }
   end
 end

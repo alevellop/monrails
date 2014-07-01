@@ -33,7 +33,7 @@ class CoursesController < ApplicationController
 
 	def show
 		@course = Course.find(params[:id])
-		@profile = current_user.profile_user.find_by(course_id: @course.id) if signed_in?
+		@profile = Profile.find_by(user_id: current_user.id, course_id: @course.id) if signed_in?
 	end
 
 	
@@ -46,5 +46,9 @@ class CoursesController < ApplicationController
 		def correct_user
 			@course = current_user.author_of.find_by(id: params[:id])
 			redirect_to current_user if @course.nil?
+		end
+
+		def comments
+			
 		end
 end
