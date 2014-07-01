@@ -19,7 +19,7 @@ namespace :db do
 		users = User.all
 		12.times do |m|
 			part_of_title = "Example Course Number - #{m}"
-			description = Faker::Lorem.paragraph(2)
+			description = Faker::Lorem.paragraph(rand(2..6))
 			users.each do |user| 
 				title = user.name << "'s " << part_of_title
 				user.author_of.create!(title: title, description: description) 

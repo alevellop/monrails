@@ -5,7 +5,7 @@ module StaticPagesHelper
 		if Course.count < 4
 			length = Course.count
 		end
-		Course.all.to_a[-length, length].reverse
+		Course.all.sort{ |course_one, course_two| course_one.created_at <=> course_two.created_at }.to_a[-length, length].reverse
 	end
 
 	def popular_courses

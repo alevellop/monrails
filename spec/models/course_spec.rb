@@ -34,7 +34,7 @@ describe Course do
   	before { @course.title = "a"*101 }
   	it{ should_not be_valid }
 
-  	before { @course.description= "a"*301 }
+  	before { @course.description= "a"*1001 }
   	it { should_not be_valid }
   end
 

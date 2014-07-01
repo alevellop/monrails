@@ -14,5 +14,5 @@ class Course
 
   validates :author_id, 	presence: true
   validates	:title, 			presence: true, length: { maximum: 100 }
-  validates :description,	presence: true, length: { maximum: 300 }
+  validates :description,	presence: true, length: { maximum: 1000 }
 end
