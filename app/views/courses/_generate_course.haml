@@ -2,5 +2,5 @@
 	%ul.pricing-table.small-12.large-12
 		%li.title= course.title
 		%li.description.text-left= course.description
-		%li.bullet-item users
+		%li.bullet-item= pluralize(course.profile_course.count, 'user')
 		%li.cta-button= link_to "View", course, class: "button tiny"
