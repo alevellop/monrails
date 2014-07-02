@@ -4,7 +4,7 @@ class CoursesController < ApplicationController
 	before_action	:correct_user,		only: :destroy
 
 	def index
-		
+		@courses = Course.all.paginate(page: params[:page], per_page: 8)
 	end
 
 	def new	

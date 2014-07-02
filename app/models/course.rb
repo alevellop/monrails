@@ -4,7 +4,8 @@ class Course
 
   # TODO: check test to unique title.
   # TODO: refactor delete course following Chapter 9.4.2 (only admin is able to delete).
-  # TODO: Rspec newest_courses and popular_courses
+  # FIX: refactor generator_courses.haml
+  # TODO: Rspec newest_courses, popular_courses, and courses.
 
   field :title, 			type: String
   field :description, type: String
