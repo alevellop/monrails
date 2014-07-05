@@ -45,6 +45,9 @@ group :production do
 	gem 'rails_12factor'
 end
 
+# To upload files to AWS
+gem 'mongoid-paperclip', require: "mongoid_paperclip"
+gem 'aws-sdk'
 # To pagination objects with Zurb Foundation
 gem 'will_paginate'
 gem 'will_paginate-foundation'

@@ -3,7 +3,11 @@
 
 / block for user's attributes-----------------------------
 
-%h2.small-11.large-5.large-offset-1.column= @user.name
+.small-11.large-5.large-offset-1.column
+	%h2.small-12.large-12= @user.name
+	
+	- if @user.image?
+		.small-12.large-12= image_tag @user.image.url(:medium)
 
 
 / block for courses---------------------------------------
