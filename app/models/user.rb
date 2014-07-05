@@ -16,9 +16,8 @@ class User
 
   has_secure_password
   has_mongoid_attached_file :image, 
-                            styles: { thumb: "9x14", small: "10x15", medium: "15x20" },
-                            url: "s3_eu_url",
-                            path: "users/:id_:style_:basename.:extension"
+                            styles: { thumb: "9x14>", small: "10x15#", medium: "15x20>" },
+                            path: "/users/:id_:basename.:extension"
 
   has_many  :author_of,    inverse_of: :author, class_name: "Course",  dependent: :destroy
   has_many  :profile_user, inverse_of: :user,   class_name: "Profile", dependent: :destroy
@@ -26,8 +25,9 @@ class User
   before_save { email.downcase! }
   before_create :create_remember_token
 
-  validates_attachment :image, size: { less_than: 3.megabytes },
-                        content_type: { content_type: ["image/jpeg", "image/jpg", "image/png"] }
+  validates_attachment :image, 
+                        size: { less_than: 3.megabytes },
+                        content_type: { content_type: ["*.jpeg", "*.jpg", "*.png"] }
   validates :name,  presence: true, length: { maximum: 50 }
   validates :password , length: { minimum: 6 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(?:\.[a-z\d\-]+)*\.[a-z]+\z/i
