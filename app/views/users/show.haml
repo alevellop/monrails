@@ -5,9 +5,7 @@
 
 .small-11.large-5.large-offset-1.column
 	%h2.small-12.large-12= @user.name
-	
-	- if @user.image?
-		.small-12.large-12= image_tag @user.image.url(:medium)
+	.small-12.large-12= image_tag @user.image.url(:square)
 
 
 / block for courses---------------------------------------
