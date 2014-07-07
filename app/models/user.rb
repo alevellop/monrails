@@ -16,7 +16,7 @@ class User
 
   has_secure_password
   has_mongoid_attached_file :image, 
-                            styles: { thumb: '100x100>', square: '200x200#', medium: '300x300>' }
+                            styles: { thumb: '100x100>', small: '150x150>' }
 
   has_many  :author_of,    inverse_of: :author, class_name: "Course",  dependent: :destroy
   has_many  :profile_user, inverse_of: :user,   class_name: "Profile", dependent: :destroy
@@ -24,6 +24,8 @@ class User
   before_save { email.downcase! }
   before_create :create_remember_token
 
+  validates_attachment_size :image, less_than: 2.megabytes
+  validates_attachment_content_type :image, content_type: ['image/jpeg', 'image/jpg', 'image/png']
   # validates_attachment :image, 
   #                       size: { less_than: 3.megabytes },
   #                       content_type: { content_type: ["*.jpeg", "*.jpg", "*.png"] }

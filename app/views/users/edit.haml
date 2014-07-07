@@ -3,6 +3,6 @@
 %h2.small-12.large-12.text-center Update your profile
 
 .small-10.small-offset-1.large-7.large-offset-2
-	= form_for(@user) do |f|
+	= form_for(@user, multipart: true ) do |f|
 		= render 'fields', f:f
 		= f.submit "Save changes", class: "button small"
