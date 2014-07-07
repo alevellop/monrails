@@ -16,8 +16,7 @@ class User
 
   has_secure_password
   has_mongoid_attached_file :image, 
-                            styles: { thumb: '100x100>', square: '200x200#', medium: '300x300>' },
-                            default_url: ":class/:id_:filename"
+                            styles: { thumb: '100x100>', square: '200x200#', medium: '300x300>' }
 
   has_many  :author_of,    inverse_of: :author, class_name: "Course",  dependent: :destroy
   has_many  :profile_user, inverse_of: :user,   class_name: "Profile", dependent: :destroy
