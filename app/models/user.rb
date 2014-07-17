@@ -15,26 +15,26 @@ class User
   field :password_digest, type: String
 
   has_secure_password
-  has_mongoid_attached_file :image, 
-                            styles: { thumb: '100x100>', small: '150x150>' }
-
+  has_mongoid_attached_file :photo,
+                            styles: { medium: '300x300' ,thumb: '100x100', small: '150x150' },
+                            default_url: "user_default.png",
+                            path: ":rails_root/public/system/:attachment/:id/:style/:filename",
+                            url: "/system/:attachment/:id/:style/:filename"
+                    
   has_many  :author_of,    inverse_of: :author, class_name: "Course",  dependent: :destroy
   has_many  :profile_user, inverse_of: :user,   class_name: "Profile", dependent: :destroy
 
   before_save { email.downcase! }
   before_create :create_remember_token
 
-  validates_attachment_size :image, less_than: 2.megabytes
-  validates_attachment_content_type :image, content_type: ['image/jpeg', 'image/jpg', 'image/png']
-  # validates_attachment :image, 
-  #                       size: { less_than: 3.megabytes },
-  #                       content_type: { content_type: ["*.jpeg", "*.jpg", "*.png"] }
   validates :name,  presence: true, length: { maximum: 50 }
   validates :password , length: { minimum: 6 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(?:\.[a-z\d\-]+)*\.[a-z]+\z/i
   validates :email, presence: true, 
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
+
+  validates_attachment_content_type :photo, content_type: ["image/jpg", "image/jpeg", "image/png"]
 
   def User.new_remember_token
     SecureRandom.urlsafe_base64
