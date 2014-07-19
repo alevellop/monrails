@@ -7,6 +7,8 @@ class User
   # TODO: check errors in user_pages_spec.rb (lines: 79 - 81).
   # TODO: refactor created_courses in 'view/users/show' following Chapter 10.3.3.
   # TODO: Chapter 10, exercises 1, 2, 3 (user_path version), 5, and 7.
+  # TODO: Rspec for :photo
+  # TODO: add action 'delete user himself'
 
   field :name,            type: String
   field :email,           type: String
@@ -17,10 +19,10 @@ class User
   has_secure_password
   has_mongoid_attached_file :photo,
                             styles: { medium: '300x300' ,thumb: '100x100', small: '150x150' },
-                            default_url: "user_default.png",
-                            path: ":rails_root/public/system/:attachment/:id/:style/:filename",
-                            url: "/system/:attachment/:id/:style/:filename"
-                    
+                            default_url: Figaro.env.url_default_user_photo,
+                            path: Figaro.env.path_user_photo,
+                            default_style: :small
+
   has_many  :author_of,    inverse_of: :author, class_name: "Course",  dependent: :destroy
   has_many  :profile_user, inverse_of: :user,   class_name: "Profile", dependent: :destroy
 
@@ -34,7 +36,9 @@ class User
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
 
-  validates_attachment_content_type :photo, content_type: ["image/jpg", "image/jpeg", "image/png"]
+  validates_attachment :photo, 
+    size:         { less_than: 3.megabytes }, 
+    content_type: { content_type: ["image/jpg", "image/jpeg", "image/png"] }
 
   def User.new_remember_token
     SecureRandom.urlsafe_base64
