@@ -1,0 +1,5 @@
+%h4.line-bottom Videos
+%br
+= f.fields_for :videos do |v|
+	= v.label :title
+	= v.text_field :title, placeholder: "Have 100 words to write a title..." 

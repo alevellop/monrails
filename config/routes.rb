@@ -1,7 +1,9 @@
 Monrails::Application.routes.draw do
   resources :users 
   resources :sessions, only: [:new, :create, :destroy]
-  resources :courses
+  resources :courses do
+    resources :videos
+  end
   resources :profiles
   root  'static_pages#home'
   match '/signup',  to: 'users#new',            via: 'get'

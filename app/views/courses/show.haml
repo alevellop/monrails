@@ -15,9 +15,13 @@
 				-if @profile
 					= render 'profiles/unregister'
 				-else
-					= render 'profiles/register'
-			
+					= render 'profiles/register'			
 
 	.line-bottom.row.small-11.large-12
-		%h4.small-12.large-12.column Description
+		%h3.small-12.large-12.column Description
 		%p.small-12.large-12.column= @course.description
+
+	.row.small-11.large-12
+		%h3.small-12.large-12.column= pluralize(@videos.count, 'Video')
+		- @videos.each do |video|
+			%p.small-12.large-12.column= video.title

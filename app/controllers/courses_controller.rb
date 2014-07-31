@@ -9,7 +9,8 @@ class CoursesController < ApplicationController
 
 	def new	
 		if signed_in?
-			@course  = current_user.author_of.build 
+			@course  = current_user.author_of.build
+			@course.videos.build
 		else
 			redirect_to signin_path, notice: "Please sign in."
 		end
@@ -34,21 +35,18 @@ class CoursesController < ApplicationController
 	def show
 		@course = Course.find(params[:id])
 		@profile = Profile.find_by(user_id: current_user.id, course_id: @course.id) if signed_in?
+		@videos = @course.videos.to_a
 	end
 
 	
 	private
 
 		def course_params
-			params.require(:course).permit(:title, :description)
+			params.require(:course).permit(:title, :description, videos_attributes: [:id, :title])
 		end
 
 		def correct_user
 			@course = current_user.author_of.find_by(id: params[:id])
 			redirect_to current_user if @course.nil?
-		end
-
-		def comments
-			
 		end
 end

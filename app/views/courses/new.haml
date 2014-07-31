@@ -1,6 +1,7 @@
 %h2.small-11.large-4.large-offset-4 Create a Course
 
-.small-11.large-6.large-offset-3
+.small-10.small-offset-1.large-6.large-offset-3
 	= form_for(@course) do |f|
 		= render 'fields', f:f
+		= render 'video_fields', f:f
 		= f.submit "create course", class: "button small"
