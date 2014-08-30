@@ -18,10 +18,8 @@ class User
 
   has_secure_password
   has_mongoid_attached_file :photo,
-                            styles: { medium: '300x300' ,thumb: '100x100', small: '150x150' },
                             default_url: Figaro.env.url_default_user_photo,
-                            path: Figaro.env.path_user_photo,
-                            default_style: :small
+                            path: Figaro.env.path_user_photo
 
   has_many  :author_of,    inverse_of: :author, class_name: "Course",  dependent: :destroy
   has_many  :profile_user, inverse_of: :user,   class_name: "Profile", dependent: :destroy
@@ -37,8 +35,9 @@ class User
                     uniqueness: { case_sensitive: false }
 
   validates_attachment :photo, 
-    size:         { less_than: 3.megabytes }, 
-    content_type: { content_type: ["image/jpg", "image/jpeg", "image/png"] }
+    size:         { less_than: 2.megabytes }
+  validates_attachment_content_type :photo, content_type: ["image/jpg", "image/jpeg", "image/png"], 
+                                            message: "only support 'jpeg', 'jpg' and 'png'"
 
   def User.new_remember_token
     SecureRandom.urlsafe_base64

@@ -29,14 +29,8 @@ module Monrails
 
     config.assets.precompile += %w(*.png *.jpg *.jpeg *gif)
 
-    # config.paperclip_defaults = {
-    #     storage: :s3,
-    #     # s3_host_name: 's3-us-east-1.amazonaws.com',
-    #     bucket: ENV['S3_BUCKET_NAME'],
-    #     s3_credentials: {  
-    #         access_key_id: ENV['AWS_ACCESS_KEY_ID'],
-    #         secret_access_key: ENV['AWS_SECRET_ACCESS_KEY']
-    #     }
-    # }
+    # to be allowed to show videos from 'assets/video' folder 
+    config.assets.enabled = true
+    config.assets.paths << "#{Rails.root}/app/assets/videos"
   end
 end

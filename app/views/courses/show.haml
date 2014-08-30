@@ -24,4 +24,8 @@
 	.row.small-11.large-12
 		%h3.small-12.large-12.column= pluralize(@videos.count, 'Video')
 		- @videos.each do |video|
-			%p.small-12.large-12.column= video.title
+			- if !signed_in? || (!author?(@course) && !registered?(@course))
+				%p.small-12.large-12.column= video.title
+			- else
+				%p.small-12.large-12.column= link_to video.title, [@course, video]
+				

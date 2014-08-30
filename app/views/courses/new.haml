@@ -1,7 +1,11 @@
 %h2.small-11.large-4.large-offset-4 Create a Course
 
 .small-10.small-offset-1.large-6.large-offset-3
-	= form_for(@course) do |f|
+	= form_for @course , html: {multipart: true} do |f|
 		= render 'fields', f:f
+		
+		%h4.line-bottom Videos
+		%br
 		= render 'video_fields', f:f
-		= f.submit "create course", class: "button small"
+		/ = link_to_add_fields "Add video", f, :videos
+		= f.submit "create course", class: "button small right"

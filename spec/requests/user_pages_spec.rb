@@ -77,11 +77,23 @@ describe "UserPages" do
     before do
       user.profile_user.create(course_id: older_course.id)
       user.profile_user.create(course_id: newer_course.id)
+
       visit user_path(user)
     end
 
     it { should have_content(user.name) }
     it { should have_title(user.name) }
+    it { should have_selector("img[alt='User default', src='/assets/user_default.png']") }
+
+    describe "when user attached a image" do
+      before do
+        user.photo = File.new("/spec/fixtures/rails.png")
+        user.save
+      end
+
+      it { should have_selector("img[alt='#{user.id} rails', 
+            src='https://monrails-development.s3.amazonaws.com/users/#{user.id} rails.png*']") }
+    end 
 
     describe "pagination created courses" do
       it { should have_selector('ul.created_courses') }
@@ -168,13 +180,17 @@ describe "UserPages" do
     describe "with valid information" do
       let(:new_name) { "New Name" }
       let(:new_email) { "new@example.com" }
-      before { valid_edit(user, new_name, new_email) }
+      let(:new_photo) { File.new("/spec/fixtures/rails.png")}
+      before { valid_edit(user, new_name, new_email, new_photo) }
 
       it { should have_title(new_name) }
       it { should have_selector('div.small-12.large-12.alert-box.success') }
+      it { should have_selector("img[alt='#{user.id} rails', 
+            src='https://monrails-development.s3.amazonaws.com/users/#{user.id} rails.png*'])}
       it { should have_link('Sign out', href: signout_path) }
       specify { expect(user.reload.name).to eq new_name }
       specify { expect(user.reload.email).to eq new_email }
+      specify { expect(user.reload.photo).to eq new_photo}
     end
 
     describe "forbidden attributes" do

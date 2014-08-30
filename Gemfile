@@ -14,17 +14,22 @@ group :development do
 	# replaces the standard Rails error page with a useful error page.
 	gem 'better_errors'
 	gem 'binding_of_caller'
+	# generate UML diagram
+	gem 'railroady'
 end
 
 group :development, :test do
 	# testing framework for Rails.
 	gem 'rspec-rails'
+	gem 'rspec-its', '~> 0.0.1.pre'
 	# to automatize test only over the files modified.
 	gem 'guard-rspec'
 	# to loads the environment once, so maintains a pool of processes for running future tests.
 	gem 'spork-rails'
 	gem 'guard-spork'
 	gem 'childprocess'
+	# to format tests
+	gem 'fuubar'
 end
 
 group :test do

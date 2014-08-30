@@ -14,9 +14,10 @@ class ProfilesController < ApplicationController
 	end
 
 	def destroy
-		@profile.destroy
+		profile = Profile.find(params[:id])
+		profile.destroy
 		flash[:success] = "Unregister successful."
-		redirect_to root_path
+		redirect_to root_url
 	end
 
 	private

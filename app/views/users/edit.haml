@@ -5,4 +5,4 @@
 .small-10.small-offset-1.large-7.large-offset-2
 	= form_for @user, html: {multipart: true} do |f|
 		= render 'fields', f:f
-		= f.submit "Save changes", class: "button small"
+		.right= f.submit "Save changes", class: "button small"

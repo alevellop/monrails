@@ -12,8 +12,8 @@ class UsersController < ApplicationController
 	def show
     if signed_in?
       @user = admin_user? ? User.find(params[:id]) : current_user
-      @courses  = @user.author_of.paginate(page: params[:created_page], per_page: 5)
-      @courses_registered = all_profiles.paginate(page: params[:registered_page], per_page: 5)
+      @courses  = @user.author_of.paginate(page: params[:created_page], per_page: 4)
+      @courses_registered = all_profiles.paginate(page: params[:registered_page], per_page: 4)
     else
       redirect_to signin_path, notice: "Please sign in."
     end

@@ -3,6 +3,6 @@
 %ul.courses.no-bullet.small-12.large-12
 	%p.small-12.large-12
 	.small-11.large-8.large-offset-3= will_paginate @courses, renderer: FoundationPagination::Rails
-
+	
 	- @courses.each do |course|
 		= render partial: 'generate_course', locals: {course: course}

@@ -17,10 +17,11 @@ class CoursesController < ApplicationController
 	end
 
 	def create
-		@course  = current_user.author_of.build(course_params)
+		@course  = current_user.author_of.build(course_params)		
 		if @course.save
 			flash[:success] = "Course created!"
-			redirect_to current_user
+			redirect_to course_path @course
+			# redirect_to current_user
 		else
 			render 'new'
 		end
@@ -35,14 +36,14 @@ class CoursesController < ApplicationController
 	def show
 		@course = Course.find(params[:id])
 		@profile = Profile.find_by(user_id: current_user.id, course_id: @course.id) if signed_in?
-		@videos = @course.videos.to_a
+		@videos = @course.videos
 	end
 
 	
 	private
 
 		def course_params
-			params.require(:course).permit(:title, :description, videos_attributes: [:id, :title])
+			params.require(:course).permit(:title, :description, videos_attributes: [:id, :title, :picture])
 		end
 
 		def correct_user

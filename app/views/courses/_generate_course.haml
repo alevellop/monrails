@@ -2,5 +2,13 @@
 	%ul.pricing-table.small-12.large-12
 		%li.title= course.title
 		%li.description.text-left= course.description
-		%li.bullet-item= pluralize(course.profile_course.count, 'user')
-		%li.cta-button= link_to "View", course, class: "button tiny"
+		%li.cta-button
+			.row
+				- if signed_in? && admin_user?
+					.small-4.column= pluralize(course.profile_course.count, 'user')
+					.small-4.column= link_to "Delete", course, method: "delete", data: { confirm: "Are you sure?"}, class: "button alert tiny"
+					.small-4.column= link_to "View", course, class: "button tiny"
+
+				- else	
+					.small-6.column= pluralize(course.profile_course.count, 'user')
+					.small-6.column= link_to "View", course, class: "button tiny"

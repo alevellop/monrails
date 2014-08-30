@@ -1,10 +1,14 @@
 require 'spec_helper'
+require 'rspec/its'
 
 describe Course do
   let(:user) { FactoryGirl.create(:user) }
   let(:title) 			{ "Example Course" }
   let(:description) { "Lorem Ipsum"}
-  before { @course = user.author_of.build(title: title, description: description) }
+  before do 
+    @course = user.author_of.build(title: title, description: description)
+    @course.videos.build(title: "New Video", picture: File.new("/spec/fixtures/test_video.mp4"))
+  end
 
   subject { @course }
 
@@ -14,6 +18,7 @@ describe Course do
   it { should respond_to(:profile_course) }
   it { should respond_to(:author_id) }
   its(:author) { should eq user }
+  it { should respond_to(:videos) }
 
   it { should be_valid }
 
@@ -36,6 +41,31 @@ describe Course do
 
   	before { @course.description= "a"*1001 }
   	it { should_not be_valid }
+  end
+
+  describe "with video is not attached" do
+    before { @course.videos = nil }
+    it { should_not be_valid }
+  end
+
+  describe "with video's title empty" do
+    before { @course.videos.first.title = nil }
+    it { should_not be_valid }
+  end
+
+  describe "with video's title is too long" do
+    before { @course.videos.first.title = "a"*101 }
+    it { should_not be_valid }
+  end
+
+  describe "with video's file is not attached" do
+    before { @course.videos.picture = nil }
+    it { should_not be_valid }
+  end
+
+  describe "with video's format is not allowed" do
+    before { @course.videos.picture = File.new("/spec/fixtures/rails.png") }
+    it { should_not be_valid }
   end
 
   describe "profile associations" do

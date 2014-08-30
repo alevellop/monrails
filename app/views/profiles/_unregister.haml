@@ -1,1 +1,1 @@
-= link_to "Unregister", @profile, method: "delete", data: { confirm: "Are you sure?" }, class: "large-offset-10 button"
+= link_to "Unregister", current_user.profile_user.find(@profile.id), method: "delete", data: { confirm: "Are you sure?" }, class: "large-offset-10 button alert"

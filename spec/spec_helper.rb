@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'spork'
 require 'database_cleaner'
+require "paperclip/matchers"
 #uncomment the following line to use spork with the debugger
 #require 'spork/ext/ruby-debug'
 
@@ -98,5 +99,9 @@ end
 
 Spork.each_run do
   # This code will be run each time you run your specs.
+  FactoryGirl.reload
+end
 
+Spec::Runner.configure do |config|
+  config.include Paperclip::Shoulda::Matchers
 end

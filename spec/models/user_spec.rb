@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'rspec/its'
 
 describe User do
   before do
@@ -134,6 +135,29 @@ describe User do
        it { should_not eq user_for_invalid_password }
        specify { expect(user_for_invalid_password).to be_false } 
      end
+  end
+
+  describe "photo attribute" do
+    
+    describe "when photo is not uploaded" do
+      
+      it { should_not have_attached_file(:photo)}
+    end
+
+    describe "when photo is uploaded" do
+      let(:new_photo) { File.new("/spec/fixtures/rails.png") } 
+      before { @user.photo = new_photo }
+
+      it { should validate_attachment_size(:photo).less_than(2.megabytes) }
+      it { should validate_attachment_content_type(:photo).allowing("image/jpg", "image/jpeg", "image/png") }
+
+      it "should show the correct image" do
+        before { @user.save }
+        expect(@user.photo).to eq new_photo
+      end
+
+      it { should have_attached_file(:photo)}
+    end
   end
 
   describe "remember token" do

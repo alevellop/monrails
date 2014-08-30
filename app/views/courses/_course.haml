@@ -1,7 +1,7 @@
 - if current_user?(course.author)
 	%li.small-12.large-12
 		= link_to course.title, course_path(course)
-		| #{link_to "delete", course, method: "delete", data: { confirm: "Are you sure?"}}
+		#{link_to "delete", course, method: "delete", data: { confirm: "Are you sure?"}, class: "button tiny alert"}
 
 - else
 

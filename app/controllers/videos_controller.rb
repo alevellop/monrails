@@ -1,25 +1,20 @@
 class VideosController < ApplicationController
-	
-	# def new
-	# 	@course = Course.find(params[:course_id])
-	# 	@video = @course.videos.build
-	# end
 
-	# def create
-	# 	@course = Course.find(params[:course_id])
-	# 	@video = @course.videos.build(video_params)
+	before_filter :check_course!
 
-	# 	if @video.save
-	# 		flash[:notice] = "Video added!"
-	# 	else
-	# 		redirect_to user_path(@course.author)
-	# 	end
-	# end
+	def index
+		@videos = @course.videos.all
+	end
+
+	def show
+		@video = @course.videos.find(params[:id])
+	end
 
 
-	# private
-
-	# def video_params
-	# 	params.require(:video).permite(:title)
-	# end
+	def check_course!
+		@course = Course.find(params[:course_id]) rescue nil
+		if !@course
+			redirect_to root_path, alert: "Course not found!"
+		end
+	end
 end
