@@ -3,6 +3,7 @@ Monrails::Application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
   resources :courses do
     resources :videos
+    resources :comments
   end
   resources :profiles
   root  'static_pages#home'

@@ -7,8 +7,7 @@ class Video
 
   field :title, type: String
 
-  has_mongoid_attached_file :picture,
-  													path: Figaro.env.path_course_video
+  has_mongoid_attached_file :picture, path: Figaro.env.path_course_video
 
   embedded_in :course, inverse_of: :videos, class_name: "Course"
 

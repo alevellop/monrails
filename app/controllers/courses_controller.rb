@@ -37,13 +37,14 @@ class CoursesController < ApplicationController
 		@course = Course.find(params[:id])
 		@profile = Profile.find_by(user_id: current_user.id, course_id: @course.id) if signed_in?
 		@videos = @course.videos
+		@comment = @course.comments.build
 	end
 
 	
 	private
 
 		def course_params
-			params.require(:course).permit(:title, :description, videos_attributes: [:id, :title, :picture])
+			params.require(:course).permit(:title, :description, videos_attributes:[:id, :title, :picture])
 		end
 
 		def correct_user

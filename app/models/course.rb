@@ -12,9 +12,10 @@ class Course
 
   belongs_to  :author,         inverse_of: :author_of, class_name: "User"
   has_many    :profile_course, inverse_of: :course,    class_name: "Profile", dependent: :destroy
-  embeds_many :videos,         inverse_of: :course,    class_name: "Video",   cascade_callbacks: true
+  embeds_many :videos,                                 class_name: "Video",   cascade_callbacks: true
+  embeds_many :comments,                               class_name: "Comment"
 
-  accepts_nested_attributes_for :videos, allow_destroy: true
+  accepts_nested_attributes_for :videos
 
   validates :author_id, 	presence: true
   validates	:title, 			presence: true, 

@@ -1,6 +1,6 @@
 class VideosController < ApplicationController
 
-	before_filter :check_course!
+	before_action :load_course
 
 	def index
 		@videos = @course.videos.all
@@ -10,11 +10,24 @@ class VideosController < ApplicationController
 		@video = @course.videos.find(params[:id])
 	end
 
-
-	def check_course!
-		@course = Course.find(params[:course_id]) rescue nil
-		if !@course
-			redirect_to root_path, alert: "Course not found!"
-		end
+	def new
+		@video = @course.videos.build
 	end
+
+	def create
+		@video = @course.videos.build(video_params)
+	end
+
+	private
+
+		def video_params
+			params.require(:video).permit(:title, :picture)
+		end
+
+		def load_course
+			@course = Course.find(params[:course_id]) rescue nil
+			if !@course
+				redirect_to root_path, alert: "Course not found."
+			end
+		end
 end

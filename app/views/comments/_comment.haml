@@ -1,0 +1,5 @@
+%blockquote.small-12.large-12.column
+	= c.body
+	- if signed_in? && admin_user?
+		= link_to "delete", [@course, c], method: :delete, data: { confirm: "Are you sure?"}, class: "button tiny alert"
+	
