@@ -20,6 +20,19 @@ describe "Course pages" do
   			before { click_button "create course" }
   			it { should have_content('error') }
   		end
+
+      describe "with invalid attached file" do
+        before do
+          fill_in 'course_title',                       with: "Example Course"
+          fill_in 'course_description',                 with: "Lorem Ipsum"
+          fill_in 'course_videos_attributes_0_title',   with: "Video to show"
+          fill_in 'course_videos_attributes_0_picture', with: ""
+        end
+
+        it "should not create a course" do
+          expect { click_button "create course" }.not_to change(Course, :count)
+        end
+      end
   	end
 
   	describe "with valid information" do
@@ -27,10 +40,13 @@ describe "Course pages" do
   		before do
   			fill_in 'course_title',       with: "Example Course"
   			fill_in 'course_description', with: "Lorem Ipsum"
+        fill_in 'course_videos_attributes_0_title',   with: "Video to Test"
+        fill_in 'course_videos_attributes_0_picture', with: File.new("/spec/fixtures/test_video.mp4")
   		end
   		it "should create a course" do
   			expect { click_button "create course" }.to change(Course, :count).by(1)
   		end
+      specify { expect(user.author_of.last.video.title).to eq "Video to Test" }
   	end
   end
 
@@ -48,6 +64,7 @@ describe "Course pages" do
 
   describe "profile page" do
     let(:course) { user.author_of.create(title: "New Course", description: "Lorem Ipsum") }
+    let(:video)  { course.videos.create(title: "new video", picture: File.new("/spec/fixtures/test_video.mp4")) }
     
     before{ visit course_path(course) }
 
@@ -55,6 +72,33 @@ describe "Course pages" do
     it { should have_title(course.title) }
     it { should have_content(course.description) }
     it { should have_content(course.author.name) }
+
+    describe "when user is not registered" do
+      it { should have_selector('p.small-12.large-12', text: video.title)}
+    end
+
+    describe "when user is registered" do
+      let(:registered_user) { FactoryGirl.create(:user) }
+
+      before do
+        registered_user.profile_user.create(course_id: course.id)
+        visit course_path(course)
+      end
+
+      it { should have_link(course.videos.first.title, href: course_videos_path(video)) }
+
+      describe "when visit the video's link" do
+        before { visit course_videos_path(video)}
+
+        it { should have_selector("video[
+                controls='controls',
+                height='550',
+                src='https://monrails-development.s3.amazonaws.com/courses/#{course.id}/#{video.id}_test_video.mp4*',
+                width='600']") }
+
+        it { should have_link("back", href: course_path(course)) }
+      end
+    end
 
     describe "add a comment" do
       let(:user) { FactoryGirl.create(:user) }

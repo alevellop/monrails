@@ -1,6 +1,5 @@
 .small-11.small-offset-1.large-5.large-offset-3
 	.small-12.large-12= video_tag @video.picture.url, controls: true, size: "600x550"
-	/ .small-12.large-12= image_tag @video.picture.url, size: "150x150"
 
 	%p
-	.small-12.large-12= link_to "back", @video.course, class: "button small alert"
+	.small-12.large-9.large-offset-6= link_to "back", @video.course, class: "button alert"

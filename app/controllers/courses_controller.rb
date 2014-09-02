@@ -19,9 +19,7 @@ class CoursesController < ApplicationController
 	def create
 		@course  = current_user.author_of.build(course_params)		
 		if @course.save
-			flash[:success] = "Course created!"
-			redirect_to course_path @course
-			# redirect_to current_user
+			redirect_to course_path @course, success: "Course created!"
 		else
 			render 'new'
 		end
@@ -29,8 +27,7 @@ class CoursesController < ApplicationController
 
 	def destroy
 		@course.destroy
-		flash[:success] = "Course deleted."
-		redirect_to current_user
+		redirect_to current_user, success: "Course deleted."
 	end
 
 	def show

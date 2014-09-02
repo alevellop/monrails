@@ -1,7 +1,7 @@
 .small-12.large-3.column
 	%ul.pricing-table.small-12.large-12
 		%li.title= course.title
-		%li.description.text-left= course.description
+		%li= image_tag "course_default.jpg"
 		%li.cta-button
 			.row
 				- if signed_in? && admin_user?

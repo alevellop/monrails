@@ -186,7 +186,7 @@ describe "UserPages" do
       it { should have_title(new_name) }
       it { should have_selector('div.small-12.large-12.alert-box.success') }
       it { should have_selector("img[alt='#{user.id} rails', 
-            src='https://monrails-development.s3.amazonaws.com/users/#{user.id} rails.png*'])}
+            src='https://monrails-development.s3.amazonaws.com/users/#{user.id} rails.png*']")}
       it { should have_link('Sign out', href: signout_path) }
       specify { expect(user.reload.name).to eq new_name }
       specify { expect(user.reload.email).to eq new_email }

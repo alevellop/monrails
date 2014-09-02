@@ -1,4 +1,5 @@
 = f.fields_for :videos do |v|
+	= render 'shared/error_messages', object: v.object		
 	%section
 		= v.label :title
 		= v.text_field :title, placeholder: "Have 100 characters to write a title..."
