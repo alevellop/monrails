@@ -15,10 +15,10 @@ class Video
                       uniqueness: true,
                       length: { maximum: 100 }
 
-  # do_not_validate_attachment_file_type :picture                      
+  do_not_validate_attachment_file_type :picture                      
                    
   # validates_attachment_content_type :picture, content_type: ["video/mov", "video/mpeg4", "video/avi", "video/ffmepg"], 
   #                                           message: "only support 'mp4', 'mov', 'avi', 'ffmepg'"
-  validates_attachment :picture, size: { less_than: 1000.megabytes }
+  # validates_attachment :picture, size: { less_than: 1000.megabytes }
   validates_attachment_presence :picture
 end
