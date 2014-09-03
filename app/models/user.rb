@@ -18,7 +18,7 @@ class User
 
   has_secure_password
   has_mongoid_attached_file :photo,
-                            default_url: Figaro.env.url_default_user_photo,
+                            # default_url: Figaro.env.url_default_user_photo,
                             path: Figaro.env.path_user_photo
 
   has_many  :author_of,    inverse_of: :author, class_name: "Course",  dependent: :destroy
