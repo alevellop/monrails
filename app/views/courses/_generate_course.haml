@@ -1,14 +1,14 @@
 .small-12.large-3.column
 	%ul.pricing-table.small-12.large-12
-		%li.title= course.title
-		%li= image_tag "course_default.jpg"
+		%li.title= c.title
+		%li= image_tag c.photo.url
 		%li.cta-button
 			.row
 				- if signed_in? && admin_user?
-					.small-4.column= pluralize(course.profile_course.count, 'user')
-					.small-4.column= link_to "Delete", course, method: "delete", data: { confirm: "Are you sure?"}, class: "button alert tiny"
-					.small-4.column= link_to "View", course, class: "button tiny"
+					.small-4.column= pluralize(c.profile_course.count, 'user')
+					.small-4.column= link_to "Delete", c, method: "delete", data: { confirm: "Are you sure?"}, class: "button alert tiny"
+					.small-4.column= link_to "View", c, class: "button tiny"
 
 				- else	
-					.small-6.column= pluralize(course.profile_course.count, 'user')
-					.small-6.column= link_to "View", course, class: "button tiny"
+					.small-6.column= pluralize(c.profile_course.count, 'user')
+					.small-6.column= link_to "View", c, class: "button tiny"

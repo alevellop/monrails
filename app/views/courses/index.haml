@@ -5,4 +5,4 @@
 	.small-11.large-8.large-offset-3= will_paginate @courses, renderer: FoundationPagination::Rails
 	
 	- @courses.each do |course|
-		= render partial: 'generate_course', locals: {course: course}
+		= render partial: 'generate_course', locals: {c: course}
