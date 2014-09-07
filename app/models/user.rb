@@ -35,7 +35,7 @@ class User
                     uniqueness: { case_sensitive: false }
 
   validates_attachment :photo, 
-    size:         { less_than: 2.megabytes }
+    size:         { less_than: 10.megabytes }
   validates_attachment_content_type :photo, content_type: ["image/jpg", "image/jpeg", "image/png"], 
                                             message: "only support 'jpeg', 'jpg' and 'png'"
 
