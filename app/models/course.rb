@@ -30,7 +30,7 @@ class Course
   validates :description,	presence: true, 
                           length: { maximum: 1000 }
 
-  validates_attachment :photo, size: { less_than: 3.megabytes }
+  validates_attachment :photo, size: { less_than: 10.megabytes }
   validates_attachment_content_type :photo, content_type: ["iamge/jpg", "image/jpeg", "image/png"],
                         message: "only support 'jpeg', 'jpg' and 'png'"
 end
