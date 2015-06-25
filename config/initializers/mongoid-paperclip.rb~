@@ -1,7 +1,5 @@
 require 'mongoid_paperclip'
 
-
-Paperclip::Attachment.default_options[:user_timestamp] = false
 Paperclip::Attachment.default_options[:storage] = :s3
 Paperclip::Attachment.default_options[:url] = ':s3_domain_url'
 Paperclip::Attachment.default_options[:s3_protocol] = 'https'
